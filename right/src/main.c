@@ -23,6 +23,8 @@
 #include "debug.h"
 #include "event_scheduler.h"
 
+#include "uwu.h"
+
 static bool IsEepromInitialized = false;
 static bool IsConfigInitialized = false;
 
@@ -93,6 +95,8 @@ int main(void)
         initConfig();
         sendFirstReport();
 
+        uwu_init();
+        uint64_t counter = 0;
         while (1) {
             if (UsbBasicKeyboard_ProtocolChanged) {
                 UsbBasicKeyboard_HandleProtocolChange();
@@ -108,12 +112,18 @@ int main(void)
             ++MatrixScanCounter;
             UpdateUsbReports();
 
+            counter += 1;
+            if (counter % 100 == 0) {
+                uwu_ticks(100);
+            }
+
             if (EventScheduler_IsActive) {
                 EventScheduler_Process();
             }
             if (SegmentDisplay_NeedsUpdate) {
                 SegmentDisplay_Update();
             }
+
             __WFI();
         }
     }

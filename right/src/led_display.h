@@ -38,7 +38,6 @@
     bool LedDisplay_GetIcon(led_display_icon_t icon);
     void LedDisplay_SetIcon(led_display_icon_t icon, bool isEnabled);
     void LedDisplay_UpdateIcons(void);
-    void LedDisplay_UpdateText(void);
     void LedDisplay_UpdateAll(void);
 
 #endif

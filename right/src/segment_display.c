@@ -10,6 +10,7 @@
 #include "utils.h"
 #include "debug.h"
 
+#include "uwu.h"
 
 uint16_t changeInterval = 2000;
 uint32_t lastChange = 0;
@@ -93,6 +94,7 @@ void SegmentDisplay_UpdateKeymapText()
 {
     keymap_reference_t *currentKeymap = AllKeymaps + CurrentKeymapIndex;
     SegmentDisplay_SetText(currentKeymap->abbreviationLen, currentKeymap->abbreviation, SegmentDisplaySlot_Keymap);
+    uwu_switch(strncmp(currentKeymap->abbreviation, "UWU", currentKeymap->abbreviationLen) == 0);
 }
 
 void SegmentDisplay_SerializeVar(char* buffer, macro_variable_t var)
