@@ -33,7 +33,7 @@ static enum AnimationType random_animation_type() {
     }
 }
 
-static void long_cycle(uint32_t state, bool transition) {
+static void long_cycle(uint32_t state) {
     switch (state % 21) {
         case 0:
             LedDisplay_SetText(3, "UWU");
@@ -46,9 +46,7 @@ static void long_cycle(uint32_t state, bool transition) {
             break;
         case 3:
             LedDisplay_SetText(3, "OWO");
-            if (transition) {
-                millis_target = millis + 2000;
-            }
+            millis_target = millis + 2000;
             break;
         case 4:
             LedDisplay_SetText(3, "aWa");
@@ -73,45 +71,31 @@ static void long_cycle(uint32_t state, bool transition) {
             break;
         case 11:
             LedDisplay_SetText(3, "dWd");
-            if (transition) {
-                millis_target = millis + 100;
-            }
+            millis_target = millis + 100;
             break;
         case 12:
             LedDisplay_SetText(3, "eWe");
-            if (transition) {
-                millis_target = millis + 1000;
-            }
+            millis_target = millis + 1000;
             break;
         case 13:
             LedDisplay_SetText(3, "dWd");
-            if (transition) {
-                millis_target = millis + 100;
-            }
+            millis_target = millis + 100;
             break;
         case 14:
             LedDisplay_SetText(3, "cWc");
-            if (transition) {
-                millis_target = millis + 1000;
-            }
+            millis_target = millis + 1000;
             break;
         case 15:
             LedDisplay_SetText(3, "dWd");
-            if (transition) {
-                millis_target = millis + 100;
-            }
+            millis_target = millis + 100;
             break;
         case 16:
             LedDisplay_SetText(3, "eWe");
-            if (transition) {
-                millis_target = millis + 1000;
-            }
+            millis_target = millis + 1000;
             break;
         case 17:
             LedDisplay_SetText(3, "OWO");
-            if (transition) {
-                millis_target = millis + 20000;
-            }
+            millis_target = millis + 20000;
             break;
         case 18:
             LedDisplay_SetText(3, "aWa");
@@ -121,15 +105,13 @@ static void long_cycle(uint32_t state, bool transition) {
             break;
         case 20:
             LedDisplay_SetText(3, "UWU");
-            if (transition) {
-                millis_target = millis + random_delay();
-                animation_type = random_animation_type();
-            }
+            millis_target = millis + random_delay();
+            animation_type = random_animation_type();
             break;
     }
 }
 
-static void short_cycle(uint32_t state, bool transition) {
+static void short_cycle(uint32_t state) {
     switch (state % 13) {
         case 0:
             LedDisplay_SetText(3, "UWU");
@@ -142,9 +124,7 @@ static void short_cycle(uint32_t state, bool transition) {
             break;
         case 3:
             LedDisplay_SetText(3, "OWO");
-            if (transition) {
-                millis_target = millis + 3000;
-            }
+            millis_target = millis + 3000;
             break;
         case 4:
             LedDisplay_SetText(3, "aWa");
@@ -163,9 +143,7 @@ static void short_cycle(uint32_t state, bool transition) {
             break;
         case 9:
             LedDisplay_SetText(3, "OWO");
-            if (transition) {
-                millis_target = millis + 3000;
-            }
+            millis_target = millis + 3000;
             break;
         case 10:
             LedDisplay_SetText(3, "aWa");
@@ -175,10 +153,8 @@ static void short_cycle(uint32_t state, bool transition) {
             break;
         case 12:
             LedDisplay_SetText(3, "UWU");
-            if (transition) {
-                millis_target = millis + random_delay();
-                animation_type = random_animation_type();
-            }
+            millis_target = millis + random_delay();
+            animation_type = random_animation_type();
             break;
     }
 }
@@ -187,7 +163,6 @@ void uwu_ticks(uint64_t ticks_inc) {
     if (uwu_enabled) {
         millis += ticks_inc / 10;
 
-        bool transition = false;
         if (millis >= millis_target) {
             if (animation_type == ANIMATION_LONG) {
                 long_state += 1;
@@ -195,13 +170,12 @@ void uwu_ticks(uint64_t ticks_inc) {
                 short_state += 1;
             }
             millis_target = millis + 500;
-            transition = true;
-        }
 
-        if (animation_type == ANIMATION_LONG) {
-            long_cycle(long_state, transition);
-        } else {
-            short_cycle(short_state, transition);
+            if (animation_type == ANIMATION_LONG) {
+                long_cycle(long_state);
+            } else {
+                short_cycle(short_state);
+            }
         }
     }
 }
