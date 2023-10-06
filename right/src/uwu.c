@@ -1,7 +1,7 @@
 #include "uwu.h"
 
 #include "buspal/microseconds/microseconds.h"
-#include "led_display.h"
+#include "segment_display.h"
 
 static uint64_t millis;
 static uint64_t millis_target;
@@ -33,78 +33,83 @@ static enum AnimationType random_animation_type() {
     }
 }
 
+static void setText(const char* text)
+{
+    SegmentDisplay_SetText(strlen(text), text, SegmentDisplaySlot_Keymap);
+}
+
 static void long_cycle(uint32_t state) {
     switch (state % 21) {
         case 0:
-            LedDisplay_SetText(3, "UWU");
+            setText("UWU");
             break;
         case 1:
-            LedDisplay_SetText(3, "bWb");
+            setText("bWb");
             break;
         case 2:
-            LedDisplay_SetText(3, "aWa");
+            setText("aWa");
             break;
         case 3:
-            LedDisplay_SetText(3, "OWO");
+            setText("OWO");
             millis_target = millis + 2000;
             break;
         case 4:
-            LedDisplay_SetText(3, "aWa");
+            setText("aWa");
             break;
         case 5:
-            LedDisplay_SetText(3, "bWb");
+            setText("bWb");
             break;
         case 6:
-            LedDisplay_SetText(3, "UWU");
+            setText("UWU");
             break;
         case 7:
-            LedDisplay_SetText(3, "bWb");
+            setText("bWb");
             break;
         case 8:
-            LedDisplay_SetText(3, "aWa");
+            setText("aWa");
             break;
         case 9:
-            LedDisplay_SetText(3, "OWO");
+            setText("OWO");
             break;
         case 10:
-            LedDisplay_SetText(3, "cWc");
+            setText("cWc");
             break;
         case 11:
-            LedDisplay_SetText(3, "dWd");
+            setText("dWd");
             millis_target = millis + 100;
             break;
         case 12:
-            LedDisplay_SetText(3, "eWe");
+            setText("eWe");
             millis_target = millis + 1000;
             break;
         case 13:
-            LedDisplay_SetText(3, "dWd");
+            setText("dWd");
             millis_target = millis + 100;
             break;
         case 14:
-            LedDisplay_SetText(3, "cWc");
+            setText("cWc");
             millis_target = millis + 1000;
             break;
         case 15:
-            LedDisplay_SetText(3, "dWd");
+            setText("dWd");
             millis_target = millis + 100;
             break;
         case 16:
-            LedDisplay_SetText(3, "eWe");
+            setText("eWe");
             millis_target = millis + 1000;
             break;
         case 17:
-            LedDisplay_SetText(3, "OWO");
+            setText("OWO");
             millis_target = millis + 20000;
             break;
         case 18:
-            LedDisplay_SetText(3, "aWa");
+            setText("aWa");
             break;
         case 19:
-            LedDisplay_SetText(3, "bWb");
+            setText("bWb");
             break;
         case 20:
-            LedDisplay_SetText(3, "UWU");
+            setText("UWU");
             millis_target = millis + random_delay();
             animation_type = random_animation_type();
             break;
@@ -114,45 +119,45 @@ static void long_cycle(uint32_t state) {
 static void short_cycle(uint32_t state) {
     switch (state % 13) {
         case 0:
-            LedDisplay_SetText(3, "UWU");
+            setText("UWU");
             break;
         case 1:
-            LedDisplay_SetText(3, "bWb");
+            setText("bWb");
             break;
         case 2:
-            LedDisplay_SetText(3, "aWa");
+            setText("aWa");
             break;
         case 3:
-            LedDisplay_SetText(3, "OWO");
+            setText("OWO");
             millis_target = millis + 3000;
             break;
         case 4:
-            LedDisplay_SetText(3, "aWa");
+            setText("aWa");
             break;
         case 5:
-            LedDisplay_SetText(3, "bWb");
+            setText("bWb");
             break;
         case 6:
-            LedDisplay_SetText(3, "UWU");
+            setText("UWU");
             break;
         case 7:
-            LedDisplay_SetText(3, "bWb");
+            setText("bWb");
             break;
         case 8:
-            LedDisplay_SetText(3, "aWa");
+            setText("aWa");
             break;
         case 9:
-            LedDisplay_SetText(3, "OWO");
+            setText("OWO");
             millis_target = millis + 3000;
             break;
         case 10:
-            LedDisplay_SetText(3, "aWa");
+            setText("aWa");
             break;
         case 11:
-            LedDisplay_SetText(3, "bWb");
+            setText("bWb");
             break;
         case 12:
-            LedDisplay_SetText(3, "UWU");
+            setText("UWU");
             millis_target = millis + random_delay();
             animation_type = random_animation_type();
             break;
